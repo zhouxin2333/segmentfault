@@ -1,0 +1,2 @@
+# segmentfault
+把一些segmentfault上遇到的问题个人看法代码分享哈
