@@ -14,7 +14,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        List<CustomerEntity> customerEntities = Arrays.asList(
+        List<CustomerEntity> list = Arrays.asList(
                 new CustomerEntity(15, "REJECT_APPROVAL"),
                 new CustomerEntity(100, "APPROVAL"),
                 new CustomerEntity(19, "APPROVAL"),
@@ -23,7 +23,7 @@ public class Main {
                 new CustomerEntity(30, "REJECT_APPROVAL")
         );
 
-        List<ApproveCustomerEntity> collect = customerEntities.stream().collect(new CustomerCollectorImpl());
-        System.out.println(collect);
+        List<ApproveCustomerEntity> list1 = list.stream().collect(new CustomerCollectorImpl());
+        System.out.println("统计年龄分布数据"+list1);
     }
 }
