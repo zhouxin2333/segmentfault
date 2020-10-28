@@ -1,11 +1,5 @@
 package cool.zhouxin.q_1010000037633610.utils;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-import java.util.function.BiPredicate;
-import java.util.function.ToIntBiFunction;
-
 /**
  * @author zhouxin
  * @since 2020/10/28 17:06
