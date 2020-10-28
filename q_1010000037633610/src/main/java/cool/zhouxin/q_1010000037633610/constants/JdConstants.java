@@ -1,4 +1,4 @@
-package cool.zhouxin.q_1010000037633610;
+package cool.zhouxin.q_1010000037633610.constants;
 
 /**
  * @author zhouxin
