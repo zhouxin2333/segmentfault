@@ -16,11 +16,13 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <ehcache.version>2.10.6</ehcache.version>
     </properties>
 
     <modules>
         <module>q_1010000023765242</module>
         <module>q_1010000037633610</module>
+        <module>q_1010000038290113</module>
     </modules>
 
     <dependencies>

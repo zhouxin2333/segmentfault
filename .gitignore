@@ -1,5 +1,4 @@
 /.idea/
 /segmentfault.iml
-/q_1010000023765242/.mvn/
-/q_1010000037558780/.mvn/
-/q_1010000037633610/target/
+/*/.mvn/
+/*/target/
