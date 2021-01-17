@@ -56,7 +56,6 @@ public class FieldLimitAspect {
         // 若方法返回为空，就不用处理了
         if (returnTypeHandler.isEmpty(result)) return result;
 
-        Class newClass = null;
         String classPath = this.buildClassName(method);
         Class<?> resultClass = returnTypeHandler.getRawClass(result);
         // 这是需要返回的字段set
@@ -67,7 +66,7 @@ public class FieldLimitAspect {
                 .collect(Collectors.toList());
         // 如果过滤后没有任何一个字段，则直接返回原结果
         if (fieldLimitFields.isEmpty()) return result;
-        newClass = NewClassBuilder.getNewClass(classPath, fieldLimitFields);
+        Class newClass = NewClassBuilder.getNewClass(classPath, fieldLimitFields);
 
         result = returnTypeHandler.newInstance(newClass, result);
         return result;
