@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -37,8 +38,7 @@ public class ReturnTypeCollectionHandler implements ReturnTypeHandler {
 
     @Override
     public boolean isEmpty(Object o) {
-        Collection collection = (Collection) o;
-        return collection == null || collection.isEmpty();
+        return o == null || ((Collection) o).isEmpty();
     }
 
     @Override

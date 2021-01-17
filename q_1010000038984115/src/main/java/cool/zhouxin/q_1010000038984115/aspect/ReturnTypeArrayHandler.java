@@ -31,8 +31,7 @@ public class ReturnTypeArrayHandler implements ReturnTypeHandler {
 
     @Override
     public boolean isEmpty(Object o) {
-        Object[] array = (Object[]) o;
-        return array == null || array.length == 0;
+        return o == null || ((Object[]) o).length == 0;
     }
 
     @Override
