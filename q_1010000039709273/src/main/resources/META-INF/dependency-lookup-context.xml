@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myBeanDefinitionRegistryPostProcessor"
+          class="com.example.q_1010000039709273.MyBeanDefinitionRegistryPostProcessor"
+          init-method="init">
+<!--        <property name="prefix" value="${myprefix}"></property>-->
+        <property name="resource" value="classpath:META-INF/application.properties"></property>
+    </bean>
+
+
+    <bean id="user" class="com.example.q_1010000039709273.User" name="zxmango">
+        <property name="id" value="1"/>
+        <property name="name" value="zx"/>
+    </bean>
+
+    <bean id="superUser" class="com.example.q_1010000039709273.SuperUser"
+          primary="true" parent="user">
+        <property name="address" value="成都"></property>
+    </bean>
+</beans>
