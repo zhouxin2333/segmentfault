@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author zhouxin
  * @since 2020/4/28 17:57
  */
-public class Main {
+public class Main_1010000039709273 {
 
     public static void main(String[] args) {
         // 配置XML配置文件
