@@ -47,9 +47,10 @@ public class CheckConsistencyValidatorV4 implements ConstraintValidator<CheckCon
         if (!isValid) {
             context.disableDefaultConstraintViolation();
 
-            annotations.stream().map(AnnotationUtils::getAnnotationAttributes)
-                    .map(map -> map.get(ConsistencyTag.METHOD_KEY).toString())
-                    .forEach(message -> context.buildConstraintViolationWithTemplate(message).addConstraintViolation());
+            annotations.stream()
+                       .map(AnnotationUtils::getAnnotationAttributes)
+                       .map(map -> map.get(ConsistencyTag.METHOD_KEY).toString())
+                       .forEach(message -> context.buildConstraintViolationWithTemplate(message).addConstraintViolation());
         }
 
         // 这里是展示只返回其中一个报错的写法
