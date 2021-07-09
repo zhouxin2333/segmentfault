@@ -95,7 +95,8 @@ public class CheckConsistencyValidatorV4 implements ConstraintValidator<CheckCon
         return ConsistencyContext.builder()
                                  .field(field)
                                  .value(value)
-                                 .annotation(consistencyTagAnnotation).build();
+                                 .annotation(consistencyTagAnnotation)
+                                 .build();
 
     }
 
