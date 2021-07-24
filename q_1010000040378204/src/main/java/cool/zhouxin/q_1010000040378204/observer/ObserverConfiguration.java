@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
  * @since 2021/7/24 22:41
  */
 @Configuration
-//@EnableAsync
+@EnableAsync
 public class ObserverConfiguration implements AsyncConfigurer {
 
     /**

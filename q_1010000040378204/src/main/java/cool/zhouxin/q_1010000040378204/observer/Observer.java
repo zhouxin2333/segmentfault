@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Async;
 public interface Observer {
 
      // 删除操作
-     @Async
+//     @Async
      void del();
 
      // 新增操作
