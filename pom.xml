@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.4.RELEASE</version>
+        <version>2.5.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cool.zhouxin</groupId>
@@ -29,6 +29,7 @@
         <module>q_1010000038984115</module>
         <module>q_1010000039099016</module>
         <module>q_1010000039709273</module>
+        <module>q_1010000040378204</module>
     </modules>
 
     <dependencies>
