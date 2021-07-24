@@ -24,6 +24,7 @@ public class ObserverManager implements BeanFactoryAware, SmartInitializingSingl
     @Autowired
     private List<ObserverExecutor> executors;
     private BeanFactory beanFactory;
+    private static final ObserverType[] ALL_TYPES = ObserverType.values();
     private Map<String, ObserverCompose> observerComposeMap = new HashMap<>();
 
     public ObserverCompose include(ObserverType... includeTypes) {
@@ -31,6 +32,16 @@ public class ObserverManager implements BeanFactoryAware, SmartInitializingSingl
         ObserverCompose observerCompose = observerComposeMap.computeIfAbsent(cacheKey,
                 key -> this.createCompose(includeTypes));
         return observerCompose;
+    }
+
+    public ObserverCompose exclude(ObserverType... excludeTypes) {
+        if (excludeTypes == null || excludeTypes.length == 0) return this.include(ALL_TYPES);
+
+        Set<ObserverType> excludeTypesSet = Stream.of(excludeTypes).collect(Collectors.toSet());
+        ObserverType[] includeTypes = Stream.of(ALL_TYPES)
+                                            .filter(observerType -> !excludeTypesSet.contains(observerType))
+                                            .toArray(ObserverType[]::new);
+        return this.include(includeTypes);
     }
 
     private ObserverCompose createCompose(ObserverType[] includeTypes) {
@@ -50,7 +61,7 @@ public class ObserverManager implements BeanFactoryAware, SmartInitializingSingl
     }
 
     private String buildCacheKey(ObserverType[] includeTypes) {
-        if (includeTypes == null || includeTypes.length == 0) includeTypes = ObserverType.values();
+        if (includeTypes == null || includeTypes.length == 0) includeTypes = ALL_TYPES;
 
         String cacheKey = Stream.of(includeTypes).map(Enum::name).sorted().collect(Collectors.joining("-"));
         return cacheKey;
