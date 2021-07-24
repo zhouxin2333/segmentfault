@@ -21,10 +21,12 @@ public class RunnerTest implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         ObserverCompose observerCompose = observerManager.include(ObserverType.A, ObserverType.B);
         observerCompose.del();
+
         System.out.println("========================");
         ObserverCompose observerCompose2 = observerManager.include(ObserverType.A);
         observerCompose2.del();
 
+        System.out.println("========================");
         ObserverCompose observerCompose3 = observerManager.include(ObserverType.A, ObserverType.B);
         System.out.println(observerCompose == observerCompose3);
     }
