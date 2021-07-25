@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  * @since 2021/7/24 19:03
  */
 @Component
-public class DefaultObserverComposeFactoryBean implements FactoryBean {
+class DefaultObserverComposeFactoryBean implements FactoryBean {
 
     private static final String CLASS_NAME = "DefaultObserverCompose";
     private static final String FULL_CLASS_NAME = DefaultObserverComposeFactoryBean.class.getPackage().getName() + "." + CLASS_NAME;
