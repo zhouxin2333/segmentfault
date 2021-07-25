@@ -27,13 +27,24 @@ public class ObserverManager implements BeanFactoryAware, SmartInitializingSingl
     private static final ObserverType[] ALL_TYPES = ObserverType.values();
     private Map<String, ObserverCompose> observerComposeMap = new HashMap<>();
 
+    /**
+     * 如果includeTypes为空，则表示包含所有的ObserverType
+     * @param includeTypes
+     * @return
+     */
     public ObserverCompose include(ObserverType... includeTypes) {
-        String cacheKey = this.buildCacheKey(includeTypes);
+        ObserverType[] includeTypesAfter = this.processEmpty(includeTypes);
+        String cacheKey = this.buildCacheKey(includeTypesAfter);
         ObserverCompose observerCompose = observerComposeMap.computeIfAbsent(cacheKey,
-                key -> this.createCompose(includeTypes));
+                key -> this.createCompose(includeTypesAfter));
         return observerCompose;
     }
 
+    /**
+     * 如果excludeTypes为空，则表示包含所有的ObserverType
+     * @param excludeTypes
+     * @return
+     */
     public ObserverCompose exclude(ObserverType... excludeTypes) {
         if (excludeTypes == null || excludeTypes.length == 0) return this.include(ALL_TYPES);
 
@@ -42,6 +53,10 @@ public class ObserverManager implements BeanFactoryAware, SmartInitializingSingl
                                             .filter(observerType -> !excludeTypesSet.contains(observerType))
                                             .toArray(ObserverType[]::new);
         return this.include(includeTypes);
+    }
+
+    private ObserverType[] processEmpty(ObserverType[] includeTypes) {
+        return includeTypes == null || includeTypes.length == 0 ? ALL_TYPES : includeTypes;
     }
 
     private ObserverCompose createCompose(ObserverType[] includeTypes) {
@@ -61,8 +76,6 @@ public class ObserverManager implements BeanFactoryAware, SmartInitializingSingl
     }
 
     private String buildCacheKey(ObserverType[] includeTypes) {
-        if (includeTypes == null || includeTypes.length == 0) includeTypes = ALL_TYPES;
-
         String cacheKey = Stream.of(includeTypes).map(Enum::name).sorted().collect(Collectors.joining("-"));
         return cacheKey;
     }
