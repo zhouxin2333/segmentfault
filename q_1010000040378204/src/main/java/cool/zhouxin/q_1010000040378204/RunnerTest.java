@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @author zhouxin
  * @since 2021/7/24 16:25
  */
-@Component
+//@Component
 public class RunnerTest implements ApplicationRunner {
     @Autowired
     ObserverManager observerManager;
