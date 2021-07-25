@@ -37,10 +37,10 @@ class ComposeFactoryBean implements FactoryBean {
     private static final String FIELD_NAME = "items";
     // $0是javassist的语法规则，代表this，这里items是父类的，所以完整的意思即为：super.items
     private static final String THIS_FIELD_NAME = "$0." + FIELD_NAME;
-
-    // 用于缓存目标接口Class和最终生成的ComposeClass之间的映射关系，由于是ComposeClass运行时生成
-    // 没有源文件路径，所以这里需要缓存一下
-    private Map<Class, Class> composeClassCache = new HashMap<>();
+    /**
+     * 创建出来的class作为缓存，因为多例的情况下，{@link #getObject()}会调用多次
+     */
+    private Class cacheClass = null;
 
     public ComposeFactoryBean(Class tClass) {
         this.tClass = tClass;
@@ -63,14 +63,11 @@ class ComposeFactoryBean implements FactoryBean {
 
     @Override
     public Object getObject() throws Exception {
-        Class composeClass = composeClassCache.computeIfAbsent(this.tClass,
-                this.createComposeClassFun().apply(this.tClass));
-        Object compose = composeClass.newInstance();
+        if (this.cacheClass == null) {
+            this.cacheClass = this.createComposeClass();
+        }
+        Object compose = this.cacheClass.newInstance();
         return compose;
-    }
-
-    private Function<Class, Function<Class, Class>> createComposeClassFun() {
-        return tClass -> tClass1 -> ExceptionEnv.handler(() -> this.createComposeClass());
     }
 
     private Class createComposeClass() throws Exception {
