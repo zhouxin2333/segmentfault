@@ -19,12 +19,14 @@ import java.util.stream.Stream;
  * @since 2021/7/24 19:11
  */
 @Component
-public class ObserverManager implements BeanFactoryAware, SmartInitializingSingleton {
+public class ObserverManager implements BeanFactoryAware {
 
+    // 所有的ObserverExecutor集合
     @Autowired
     private List<ObserverExecutor> executors;
     private BeanFactory beanFactory;
     private static final ObserverType[] ALL_TYPES = ObserverType.values();
+    // 用于缓存ObserverType组合对应的ObserverCompose
     private Map<String, ObserverCompose> observerComposeMap = new HashMap<>();
 
     /**
@@ -33,8 +35,11 @@ public class ObserverManager implements BeanFactoryAware, SmartInitializingSingl
      * @return
      */
     public ObserverCompose include(ObserverType... includeTypes) {
+        // includeTypes的空处理，如果传入为空，默认处理为包含所有ObserverType
         ObserverType[] includeTypesAfter = this.processEmpty(includeTypes);
+        // 方便缓存，把includeTypes按照字母顺序排序然后取name拼接起来作为cacheKey
         String cacheKey = this.buildCacheKey(includeTypesAfter);
+        // 根据cacheKey去observerComposeMap缓存中获取，如果不存在，则用当前的includeTypesAfter去重新获取一个
         ObserverCompose observerCompose = observerComposeMap.computeIfAbsent(cacheKey,
                 key -> this.createCompose(includeTypesAfter));
         return observerCompose;
@@ -60,15 +65,20 @@ public class ObserverManager implements BeanFactoryAware, SmartInitializingSingl
     }
 
     private ObserverCompose createCompose(ObserverType[] includeTypes) {
-
+        // 由于ObserverCompose是多例，所以现在从beanFactory中获取的会是一个新的Bean
         ObserverCompose observerCompose = beanFactory.getBean(ObserverCompose.class);
+        // 因为ObserverCompose的实现类是继承了DefaultObserverContainer，所以这里可以强转
         ObserverContainer observerContainer = ObserverContainer.class.cast(observerCompose);
+        // 根据当前传入的includeTypes与所有的ObserverExecutor集合executors进行过滤，筛选出满足条件的executor
         List<ObserverExecutor> includeObservers = this.filterIncludeObservers(includeTypes);
+        // 满足条件的executor直接注入到observerContainer中
         observerContainer.register(includeObservers);
+        // observerCompose该bean构造完毕，直接返回
         return observerCompose;
     }
 
     private List<ObserverExecutor> filterIncludeObservers(ObserverType[] includeTypes) {
+        // includeTypes数组转换成Set，利用hash判断效率更高
         Set<ObserverType> includeTypesSet = Stream.of(includeTypes).collect(Collectors.toSet());
         return this.executors.stream()
                              .filter(executor -> includeTypesSet.contains(executor.type()))
@@ -78,11 +88,6 @@ public class ObserverManager implements BeanFactoryAware, SmartInitializingSingl
     private String buildCacheKey(ObserverType[] includeTypes) {
         String cacheKey = Stream.of(includeTypes).map(Enum::name).sorted().collect(Collectors.joining("-"));
         return cacheKey;
-    }
-
-    @Override
-    public void afterSingletonsInstantiated() {
-        System.out.println(1);
     }
 
     @Override

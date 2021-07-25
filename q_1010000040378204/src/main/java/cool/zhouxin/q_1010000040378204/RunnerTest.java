@@ -19,7 +19,8 @@ public class RunnerTest implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        ObserverCompose observerCompose = observerManager.include(ObserverType.A, ObserverType.B);
+//        ObserverCompose observerCompose = observerManager.include(ObserverType.A, ObserverType.B);
+        ObserverCompose observerCompose = observerManager.include();
         observerCompose.del();
 
         System.out.println("========================");
