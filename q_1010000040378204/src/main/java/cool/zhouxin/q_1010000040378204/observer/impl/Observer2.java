@@ -1,6 +1,5 @@
 package cool.zhouxin.q_1010000040378204.observer.impl;
 
-import cool.zhouxin.q_1010000040378204.observer.Observer;
 import cool.zhouxin.q_1010000040378204.observer.ObserverExecutor;
 import cool.zhouxin.q_1010000040378204.observer.ObserverType;
 import org.springframework.stereotype.Component;
