@@ -1,5 +1,8 @@
 package cool.zhouxin.q_1010000040378204.v5.compose;
 
+import cool.zhouxin.q_1010000040378204.v5.compose.example.CleanRoom;
+import cool.zhouxin.q_1010000040378204.v5.compose.example.CookFood;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 
@@ -9,6 +12,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @Configuration
 @EnableAsync
+@EnableCompose({CookFood.class, CleanRoom.class})
+@ComponentScan("cool.zhouxin.q_1010000040378204.v5")
 public class ComposeConfiguration {
 
     /**

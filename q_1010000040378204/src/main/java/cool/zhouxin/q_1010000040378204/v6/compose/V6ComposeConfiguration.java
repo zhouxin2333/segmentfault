@@ -1,24 +1,20 @@
-package cool.zhouxin.q_1010000040378204.observer;
+package cool.zhouxin.q_1010000040378204.v6.compose;
 
+import cool.zhouxin.q_1010000040378204.v6.compose.example.CleanRoom;
+import cool.zhouxin.q_1010000040378204.v6.compose.example.CookFood;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.AsyncConfigurer;
-import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.scheduling.config.TaskExecutorFactoryBean;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 /**
  * @author zhouxin
- * @since 2021/7/24 22:41
+ * @since 2021/7/25 16:25
  */
 @Configuration
 @EnableAsync
-@ComponentScan("cool.zhouxin.q_1010000040378204.observer")
-public class ObserverConfiguration implements AsyncConfigurer {
+@EnableCompose({CookFood.class, CleanRoom.class})
+@ComponentScan("cool.zhouxin.q_1010000040378204.v6")
+public class V6ComposeConfiguration {
 
     /**
      * 如果你想配置@Async注解自己的Executor，可以实现{@link #getAsyncExecutor()}进行配置

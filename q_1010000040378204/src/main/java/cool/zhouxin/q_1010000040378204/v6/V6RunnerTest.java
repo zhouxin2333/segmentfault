@@ -1,25 +1,31 @@
-package cool.zhouxin.q_1010000040378204;
+package cool.zhouxin.q_1010000040378204.v6;
 
-import cool.zhouxin.q_1010000040378204.v5.compose.ComposeFactory;
-import cool.zhouxin.q_1010000040378204.v5.compose.example.CleanRoom;
-import cool.zhouxin.q_1010000040378204.v5.compose.example.CookFoodType;
-import cool.zhouxin.q_1010000040378204.v5.compose.example.CookFood;
+import cool.zhouxin.q_1010000040378204.v6.compose.ComposeFactory;
+import cool.zhouxin.q_1010000040378204.v6.compose.example.CleanRoom;
+import cool.zhouxin.q_1010000040378204.v6.compose.example.CookFood;
+import cool.zhouxin.q_1010000040378204.v6.compose.example.CookFoodType;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhouxin
  * @since 2021/7/24 16:25
  */
 @Component
-public class V5RunnerTest implements ApplicationRunner {
+public class V6RunnerTest implements ApplicationRunner, BeanFactoryAware {
 
     @Autowired
     private ComposeFactory composeFactory;
+    BeanFactory beanFactory;
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
+    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -40,5 +46,9 @@ public class V5RunnerTest implements ApplicationRunner {
 
         CookFood cookFoodExclude1 = composeFactory.createByExclude(CookFood.class, CookFoodType.A);
         cookFoodExclude1.zuoFan();
+
+
+        CleanRoom cleanRoom = composeFactory.create(CleanRoom.class);
+        cleanRoom.tuoDi();
     }
 }
