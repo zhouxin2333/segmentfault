@@ -15,7 +15,7 @@ public class CookFoodImpl1 implements CookFood{
 
     @Override
     public void xiCai(String name) {
-        ExceptionEnv.handler(() -> TimeUnit.SECONDS.sleep(5));
+//        ExceptionEnv.handler(() -> TimeUnit.SECONDS.sleep(5));
         System.out.println("我是Cook Food 1, 开始洗菜" + name);
     }
 

@@ -23,23 +23,22 @@ public class V5RunnerTest implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        CookFood cookFood = composeFactory.get(CookFood.class);
-
+        CookFood cookFood = composeFactory.create(CookFood.class);
         cookFood.xiCai("zx");
 
         System.out.println("==========================");
 
-        CookFood cookFood1 = composeFactory.get(CookFood.class, CookFoodType.A, CookFoodType.B);
+        CookFood cookFood1 = composeFactory.create(CookFood.class, CookFoodType.A, CookFoodType.B);
         cookFood1.zhuCai(10l, "haha");
 
         System.out.println("=======================");
 
-        CookFood cookFood3 = composeFactory.get(CookFood.class);
+        CookFood cookFood3 = composeFactory.create(CookFood.class);
         System.out.println(cookFood == cookFood3);
 
-//        System.out.println("=======================");
-//
-//        CleanRoom cleanRoom = composeFactory.get(CleanRoom.class);
-//        cleanRoom.tuoDi();
+        System.out.println("=======================");
+
+        CookFood cookFoodExclude1 = composeFactory.createByExclude(CookFood.class, CookFoodType.A);
+        cookFoodExclude1.zuoFan();
     }
 }

@@ -86,6 +86,9 @@ class ComposeFactoryBean implements FactoryBean {
         // 添加目标接口的实现方法
         addTargetClassMethods(ctClass);
 
+        // 如果想看生成的类，可以把下面的注释放开即可，正式使用建议不要打开
+//        ctClass.writeFile();
+
         // ctClass转换为Class
         Class resultClass = ctClass.toClass();
         return resultClass;
