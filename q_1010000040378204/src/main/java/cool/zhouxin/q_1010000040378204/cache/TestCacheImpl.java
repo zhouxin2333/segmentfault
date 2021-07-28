@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class TestCacheImpl implements TestCache {
 
     @Override
-    @CustomCache
+    @CustomCache(key = "custom", timeout = 10l)
     public String say() {
         return "haha";
     }

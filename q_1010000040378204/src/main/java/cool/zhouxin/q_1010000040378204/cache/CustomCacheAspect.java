@@ -15,7 +15,7 @@ public class CustomCacheAspect {
 
     @Around("@annotation(customCache)")
     public Object execute(ProceedingJoinPoint joinPoint, CustomCache customCache) {
-        System.out.println("in cache aspect begin");
+        System.out.println("in cache aspect begin, current key: " + customCache.key());
         String key = customCache.key();
         // 根据key去缓存噻，有的话可以直接返回
         Object cacheData = this.findFromCache(key);
